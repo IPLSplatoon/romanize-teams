@@ -1,0 +1,16 @@
+{
+  "name": "romanize-teams",
+  "description": "Adds romanized names for team and player names contained in IPL-OC tournament data",
+  "main": "index.js",
+  "author": {
+    "name": "inkfarer",
+    "email": "inkfarer@inkfarer.com",
+    "url": "https://inkfarer.com"
+  },
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "kuroshiro": "^1.2.0",
+    "kuroshiro-analyzer-kuromoji": "^1.1.0"
+  }
+}
