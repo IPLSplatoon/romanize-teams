@@ -1,6 +1,6 @@
 import Kuroshiro from 'kuroshiro';
 import KuromojiAnalyzer from 'kuroshiro-analyzer-kuromoji';
-import {argv} from 'node:process';
+import { argv } from 'node:process';
 import process from 'node:process';
 import {readFileSync, writeFileSync} from 'node:fs';
 
@@ -22,14 +22,19 @@ if (argv.length < 3) {
     }
 
     const newTeams = await Promise.all(tournamentData.teams.map(async team => {
-        const newPlayers = await Promise.all(team.players.map(async player => ({
-            ...player,
-            romanizedName: await convert(player.name)
-        })));
+        const newPlayers = await Promise.all(team.players.map(async player =>
+            player.romanizedName == null ? ({
+                ...player,
+                romanizedName: await convert(player.name)
+            }) : player));
 
-        const romanizedName = await convert(team.name);
+        if (team.romanizedName == null) {
+            const romanizedName = await convert(team.name);
 
-        return {...team, romanizedName, players: newPlayers}
+            return { ...team, romanizedName, players: newPlayers }
+        } else {
+            return { ...team, players: newPlayers }
+        }
     }));
 
     const newFilePath = `${filePath.slice(0, -5)}_romanized.json`;
