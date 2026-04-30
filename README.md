@@ -7,8 +7,9 @@ Uses the [ipl-overlay-controls](https://github.com/inkfarer/ipl-overlay-controls
 
 - Install dependencies: `npm i`
 - Run the program: `node index.js [path]`
+  - Use `index-v2.js` for newer graphics (made from 2026 onwards.)
 - On completion, the output file name will be printed to the console.
-- **The tokenizer may occasionally make mistakes when converting team names to romaji - Before using the output, 
+- **The tokenizer may occasionally make mistakes when converting names to romaji - Before using the output, 
   search for the string `undefined` inside it and manually fix any mistakes.**
 
 View a sample input file in the `examples` directory of this repository.
