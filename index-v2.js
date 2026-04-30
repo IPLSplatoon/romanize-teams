@@ -23,7 +23,12 @@ if (argv.length < 3) {
 
     const newTeams = await Promise.all(tournamentData.teams.map(async (team) => {
         const newPlayers = await Promise.all((team.players.map(async (player) => {
-            if (player.romanizedName != null) return player;
+            if (player.romanizedName != null) {
+                return {
+                    ...player,
+                    name: `${player.romanizedName} (${player.originalName})`,
+                };
+            }
 
             const romanizedName = await convert(player.name);
 
@@ -33,7 +38,7 @@ if (argv.length < 3) {
                     ...player,
                     originalName: player.name,
                     romanizedName,
-                    name: `${player.name} (${romanizedName})`,
+                    name: `${romanizedName} (${player.name})`,
                 });
         })));
 
@@ -41,6 +46,7 @@ if (argv.length < 3) {
             return {
                 ...team,
                 players: newPlayers,
+                name: `${team.romanizedName} (${team.originalName})`,
             };
         } else {
             const romanizedName = await convert(team.name);
@@ -52,7 +58,7 @@ if (argv.length < 3) {
                 }
                 : {
                     ...team,
-                    name: `${team.name} (${romanizedName})`,
+                    name: `${romanizedName} (${team.name})`,
                     originalName: team.name,
                     romanizedName,
                     players: newPlayers
